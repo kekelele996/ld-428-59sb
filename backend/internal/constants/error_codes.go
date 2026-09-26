@@ -14,4 +14,6 @@ const (
 	CodeUserExists         = 40901
 	CodeDatabaseError      = 50001
 	CodeRateLimited        = 42900
+	CodeReservationFull    = 40902
+	CodeReservationClosed  = 40903
 )

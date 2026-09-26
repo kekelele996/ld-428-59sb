@@ -11,7 +11,16 @@ export async function request<T>(path: string, init?: RequestInit): Promise<T> {
   });
 
   if (!response.ok) {
-    throw new Error(`Request failed: ${response.status}`);
+    let message = `Request failed: ${response.status}`;
+    try {
+      const payload = (await response.json()) as Partial<ApiEnvelope<unknown>>;
+      if (payload && typeof payload.message === 'string' && payload.message) {
+        message = payload.message;
+      }
+    } catch {
+      // 响应体非 JSON 时保留默认错误信息
+    }
+    throw new Error(message);
   }
 
   const payload = (await response.json()) as ApiEnvelope<T> | T;

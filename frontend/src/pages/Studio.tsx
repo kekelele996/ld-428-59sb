@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { ArtworkCard } from '../components/common/ArtworkCard';
 import { EmptyState } from '../components/common/EmptyState';
+import { ReservationManager } from '../components/common/ReservationManager';
 import { StatCard } from '../components/common/StatCard';
 import { TrendChart } from '../components/common/TrendChart';
 import { useArtistStore } from '../stores/artistStore';
@@ -72,6 +73,7 @@ export function Studio() {
             })}
           </Tab.Panels>
         </Tab.Group>
+        <ReservationManager />
       </div>
     </main>
   );

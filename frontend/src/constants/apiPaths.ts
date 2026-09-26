@@ -3,4 +3,5 @@ export const apiPaths = {
   exhibitions: '/api/v1/exhibitions',
   artists: '/api/v1/artists',
   interactions: '/api/v1/interactions',
+  reservations: '/api/v1/reservations',
 };

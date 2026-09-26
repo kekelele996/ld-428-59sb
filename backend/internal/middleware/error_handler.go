@@ -28,7 +28,7 @@ func ErrorHandler(logger *slog.Logger) gin.HandlerFunc {
 				status = http.StatusForbidden
 			case constants.CodeNotFound:
 				status = http.StatusNotFound
-			case constants.CodeConflict, constants.CodeUserExists:
+			case constants.CodeConflict, constants.CodeUserExists, constants.CodeReservationFull, constants.CodeReservationClosed:
 				status = http.StatusConflict
 			case constants.CodeInternalError, constants.CodeDatabaseError:
 				status = http.StatusInternalServerError

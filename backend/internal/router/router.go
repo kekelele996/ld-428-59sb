@@ -24,6 +24,7 @@ type Handlers struct {
 	Interaction *handler.InteractionHandler
 	Review      *handler.ReviewHandler
 	Audit       *handler.AuditHandler
+	Reservation *handler.ReservationHandler
 }
 
 // NewRouter 装配路由、CORS、限流、健康检查与鉴权。
@@ -76,6 +77,8 @@ func NewRouter(cfg *config.Config, logger *slog.Logger, db *mongo.Database, hs *
 			public.GET("/artists", hs.Artist.List)
 			public.GET("/artists/:id", hs.Artist.Get)
 			public.GET("/interactions", hs.Interaction.List)
+			public.POST("/exhibitions/:id/reservations", hs.Reservation.Create)
+			public.GET("/exhibitions/:id/reservations/availability", hs.Reservation.Availability)
 		}
 
 		secured := v1.Group("")
@@ -99,6 +102,8 @@ func NewRouter(cfg *config.Config, logger *slog.Logger, db *mongo.Database, hs *
 				curatorOnly.POST("/exhibitions", hs.Exhibition.Create)
 				curatorOnly.PATCH("/exhibitions/:id/status", hs.Exhibition.ChangeStatus)
 				curatorOnly.POST("/exhibitions/:id/artworks/:artworkId", hs.Exhibition.AddArtwork)
+				curatorOnly.GET("/exhibitions/:id/reservations", hs.Reservation.List)
+				curatorOnly.PATCH("/reservations/:id/cancel", hs.Reservation.Cancel)
 			}
 
 			adminOnly := secured.Group("")

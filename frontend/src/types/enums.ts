@@ -43,3 +43,14 @@ export enum ArtistStatus {
   Active = 'Active',
   Inactive = 'Inactive',
 }
+
+export enum VisitSession {
+  Morning = 'Morning',
+  Afternoon = 'Afternoon',
+  Evening = 'Evening',
+}
+
+export enum ReservationStatus {
+  Confirmed = 'Confirmed',
+  Cancelled = 'Cancelled',
+}

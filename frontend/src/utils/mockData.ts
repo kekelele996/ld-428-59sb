@@ -1,5 +1,5 @@
-import { Artist, Artwork, Exhibition, Interaction } from '../types';
-import { ArtistStatus, ArtworkStatus, ExhibitionStatus, ExhibitionType, InteractionType, Medium } from '../types/enums';
+import { Artist, Artwork, Exhibition, Interaction, Reservation } from '../types';
+import { ArtistStatus, ArtworkStatus, ExhibitionStatus, ExhibitionType, InteractionType, Medium, ReservationStatus, VisitSession } from '../types/enums';
 
 export const artists: Artist[] = [
   {
@@ -93,7 +93,7 @@ export const exhibitions: Exhibition[] = [
     description: '一组围绕城市更新、人工光和材料记忆展开的小型群展。',
     curatorId: 'artist-lin',
     startDate: '2026-05-01',
-    endDate: '2026-08-15',
+    endDate: '2026-12-31',
     type: ExhibitionType.Group,
     coverUrl: 'https://images.unsplash.com/photo-1545987796-200677ee1011?auto=format&fit=crop&w=1400&q=80',
     artworkIds: ['art-001', 'art-002'],
@@ -118,4 +118,9 @@ export const exhibitions: Exhibition[] = [
 export const interactions: Interaction[] = [
   { id: 'i-1', userId: 'viewer-1', targetType: 'Artwork', targetId: 'art-001', type: InteractionType.Comment, comment: '材料边缘处理很克制。', createdAt: '2026-06-02T10:00:00.000Z' },
   { id: 'i-2', userId: 'viewer-2', targetType: 'Artwork', targetId: 'art-001', type: InteractionType.Like, createdAt: '2026-06-03T12:00:00.000Z' },
+];
+
+export const reservations: Reservation[] = [
+  { id: 'rsv-demo-1', exhibitionId: 'exh-001', visitDate: '2026-06-12', session: VisitSession.Morning, visitorCount: 2, phone: '13800000001', status: ReservationStatus.Confirmed, createdAt: '2026-06-05T09:30:00.000Z' },
+  { id: 'rsv-demo-2', exhibitionId: 'exh-001', visitDate: '2026-06-12', session: VisitSession.Afternoon, visitorCount: 4, phone: '13800000002', status: ReservationStatus.Cancelled, createdAt: '2026-06-05T11:20:00.000Z' },
 ];

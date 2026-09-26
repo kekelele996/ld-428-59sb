@@ -51,7 +51,7 @@ func Seed(ctx context.Context, db *mongo.Database, logger *slog.Logger) {
 	exhCount, _ := db.Collection("exhibitions").CountDocuments(ctx, bson.M{})
 	if exhCount == 0 {
 		now := time.Now()
-		db.Collection("exhibitions").InsertOne(ctx, model.Exhibition{ID: "exh-001", Title: "材料仍在说话", Description: "一组围绕城市更新、人工光和材料记忆展开的小型群展。", CuratorID: "artist-lin", StartDate: "2026-05-01", EndDate: "2026-08-15", Type: constants.ExhibitionTypeGroup, CoverURL: "https://images.unsplash.com/photo-1545987796-200677ee1011?auto=format&fit=crop&w=1400&q=80", ArtworkIDs: []string{"art-001", "art-002"}, Status: constants.ExhibitionActive, Visitors: 12840, ReviewStatus: "Approved", CreatedAt: now, UpdatedAt: now})
+		db.Collection("exhibitions").InsertOne(ctx, model.Exhibition{ID: "exh-001", Title: "材料仍在说话", Description: "一组围绕城市更新、人工光和材料记忆展开的小型群展。", CuratorID: "artist-lin", StartDate: "2026-05-01", EndDate: "2026-12-31", Type: constants.ExhibitionTypeGroup, CoverURL: "https://images.unsplash.com/photo-1545987796-200677ee1011?auto=format&fit=crop&w=1400&q=80", ArtworkIDs: []string{"art-001", "art-002"}, Status: constants.ExhibitionActive, Visitors: 12840, ReviewStatus: "Approved", CreatedAt: now, UpdatedAt: now})
 		db.Collection("exhibitions").InsertOne(ctx, model.Exhibition{ID: "exh-002", Title: "可拆卸的房间", Description: "林知微个展，讨论临时结构如何改变观看关系。", CuratorID: "artist-lin", StartDate: "2026-09-10", EndDate: "2026-11-30", Type: constants.ExhibitionTypeSolo, CoverURL: "https://images.unsplash.com/photo-1564399579883-451a5d44ec08?auto=format&fit=crop&w=1400&q=80", ArtworkIDs: []string{"art-003"}, Status: constants.ExhibitionPlanning, ReviewStatus: "Approved", CreatedAt: now, UpdatedAt: now})
 	}
 

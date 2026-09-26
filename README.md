@@ -136,6 +136,10 @@ npm run dev
 | PATCH | /api/v1/artists/me | 完善我的艺术家主页 |
 | GET/POST | /api/v1/interactions | 互动列表/点赞评论收藏 |
 | DELETE | /api/v1/interactions | 取消点赞/收藏 |
+| POST | /api/v1/exhibitions/:id/reservations | 观众提交参观预约（公开，凭手机号） |
+| GET | /api/v1/exhibitions/:id/reservations/availability?date= | 查询某日各场次剩余名额 |
+| GET | /api/v1/exhibitions/:id/reservations | 展览预约记录（Curator/Admin） |
+| PATCH | /api/v1/reservations/:id/cancel | 取消预约并立即释放名额（Curator/Admin） |
 | GET | /api/v1/reviews | 审核日志（Admin/Curator） |
 | GET | /api/v1/audit-logs | 操作日志（Admin/Curator） |
 
@@ -158,6 +162,10 @@ npm run dev
 **InteractionType（Like/Comment/Bookmark/Share）**
 - 前端：`frontend/src/types/enums.ts`、`frontend/src/components/common/InteractionBar.tsx`、`frontend/src/hooks/useInteraction.ts`
 - 后端：`backend/internal/constants/interaction.go`、`backend/internal/model/interaction.go`、`backend/internal/service/interaction_service.go`
+
+**VisitSession（Morning/Afternoon/Evening）与 ReservationStatus（Confirmed/Cancelled）**
+- 前端：`frontend/src/types/enums.ts`、`frontend/src/constants/sessionOptions.ts`、`frontend/src/components/common/ReservationPanel.tsx`、`frontend/src/components/common/ReservationManager.tsx`
+- 后端：`backend/internal/constants/reservation.go`、`backend/internal/model/reservation.go`、`backend/internal/service/reservation_service.go`、`backend/internal/dto/reservation_dto.go`
 
 ## License
 

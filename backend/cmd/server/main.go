@@ -44,6 +44,10 @@ func main() {
 	interactionRepo := repository.NewInteractionRepository(db)
 	reviewRepo := repository.NewReviewRepository(db)
 	auditRepo := repository.NewAuditLogRepository(db)
+	reservationRepo := repository.NewReservationRepository(db)
+	if err := reservationRepo.EnsureIndexes(context.Background()); err != nil {
+		log.Error("ensure reservation indexes failed", "error", err)
+	}
 
 	authSvc := service.NewAuthService(userRepo, log, cfg)
 	artistSvc := service.NewArtistService(artistRepo, log)
@@ -52,6 +56,7 @@ func main() {
 	interactionSvc := service.NewInteractionService(interactionRepo, artworkRepo, log)
 	reviewSvc := service.NewReviewService(reviewRepo, log)
 	auditSvc := service.NewAuditLogService(auditRepo, log)
+	reservationSvc := service.NewReservationService(reservationRepo, exhibitionRepo, log)
 
 	hs := &router.Handlers{
 		Auth:        handler.NewAuthHandler(authSvc),
@@ -61,6 +66,7 @@ func main() {
 		Interaction: handler.NewInteractionHandler(interactionSvc),
 		Review:      handler.NewReviewHandler(reviewSvc),
 		Audit:       handler.NewAuditHandler(auditSvc),
+		Reservation: handler.NewReservationHandler(reservationSvc),
 	}
 
 	ginRouter := router.NewRouter(cfg, log, db, hs, auditSvc, artworkRepo, exhibitionRepo)

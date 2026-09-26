@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { ArtworkCard } from '../components/common/ArtworkCard';
 import { ExhibitionBanner } from '../components/common/ExhibitionBanner';
+import { ReservationPanel } from '../components/common/ReservationPanel';
 import { UserAvatar } from '../components/common/UserAvatar';
 import { useArtistStore } from '../stores/artistStore';
 import { useArtworkStore } from '../stores/artworkStore';
@@ -34,6 +35,7 @@ export function ExhibitionDetail() {
             <p className="text-sm uppercase tracking-[0.2em] text-ink/45">Curator</p>
             {curator && <div className="mt-4"><UserAvatar artist={curator} /></div>}
             <p className="mt-6 text-sm leading-7 text-ink/65">{exhibition.visitors.toLocaleString()} 位线上观众访问了本展。</p>
+            <div className="mt-8"><ReservationPanel exhibition={exhibition} /></div>
           </aside>
           <div>
             <h2 className="font-display text-4xl">展出作品</h2>

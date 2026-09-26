@@ -8,3 +8,5 @@ db.createCollection('exhibitions');
 db.createCollection('interactions');
 db.createCollection('review_logs');
 db.createCollection('audit_logs');
+db.createCollection('reservations');
+db.createCollection('reservation_counters');
