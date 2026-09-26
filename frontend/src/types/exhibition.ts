@@ -12,4 +12,5 @@ export interface Exhibition {
   artworkIds: string[];
   status: ExhibitionStatus;
   visitors: number;
+  reviewStatus?: string;
 }

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArtworkCard } from '../components/common/ArtworkCard';
 import { EmptyState } from '../components/common/EmptyState';
 import { ExhibitionBanner } from '../components/common/ExhibitionBanner';
+import { AuthNav } from '../components/auth/AuthNav';
 import { usePagination } from '../hooks/usePagination';
 import { useArtistStore } from '../stores/artistStore';
 import { useArtworkStore } from '../stores/artworkStore';
@@ -26,10 +27,7 @@ export function Gallery() {
     <main className="page-shell">
       <header className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         <Link to="/gallery" className="font-display text-2xl">Atelier Index</Link>
-        <nav className="flex gap-5 text-sm text-ink/70">
-          <Link to="/gallery">画廊</Link>
-          <Link to="/studio">工作台</Link>
-        </nav>
+        <AuthNav />
       </header>
       <section className="mx-auto max-w-7xl px-6 pb-16">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">

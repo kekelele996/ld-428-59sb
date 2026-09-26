@@ -28,6 +28,7 @@ docker compose down -v --remove-orphans
 
 - **作品管理**：上传作品（标题/描述/媒介/尺寸/图片/标签/价格），草稿→发布→售出→归档状态流转，发布内容经审核后公开。
 - **线上展览**：策展人创建展览（Solo/Group/Thematic/Permanent），收录作品，发布后对外展示并统计参观人数。
+- **展览预约**：观众在展览详情页选择日期场次、填写人数与手机号提交预约；场次名额约满即止，同一手机号同一场次不可重复占位；未发布/已结束的展览停止预约；策展人在预约管理工作台查看记录并取消，取消后名额立即释放。
 - **观众互动**：点赞、评论、收藏、分享，作品点赞/收藏/浏览计数实时更新。
 - **艺术家主页**：艺术家名、简介、擅长媒介、代表作品、社交媒体链接、粉丝关注数。
 - **创作工作台（Studio）**：我的作品管理（草稿/已发布/已售 Tab）、上传新作品、创建展览、数据统计。
@@ -131,6 +132,11 @@ npm run dev
 | POST | /api/v1/exhibitions | 创建展览（Curator/Admin） |
 | PATCH | /api/v1/exhibitions/:id/status | 发布展览 |
 | POST | /api/v1/exhibitions/:id/artworks/:artworkId | 展览收录作品 |
+| GET | /api/v1/exhibitions/:id/sessions | 展览场次列表（公开） |
+| POST | /api/v1/exhibitions/:id/sessions | 创建场次（Curator/Admin） |
+| POST | /api/v1/reservations | 提交预约（公开，凭手机号） |
+| GET | /api/v1/exhibitions/:id/reservations | 查看某展览的预约记录（Curator/Admin） |
+| POST | /api/v1/reservations/:reservationId/cancel | 取消预约并释放名额（Curator/Admin） |
 | GET | /api/v1/artists | 艺术家列表 |
 | GET | /api/v1/artists/:id | 艺术家主页 |
 | PATCH | /api/v1/artists/me | 完善我的艺术家主页 |
@@ -139,7 +145,7 @@ npm run dev
 | GET | /api/v1/reviews | 审核日志（Admin/Curator） |
 | GET | /api/v1/audit-logs | 操作日志（Admin/Curator） |
 
-演示账号：`lin / Artist@123`（艺术家林知微）、`chen / Artist@123`（艺术家陈序）、`viewer / Viewer@123`（观众）、`admin / Admin@123`（管理员）。
+演示账号：`lin / Artist@123`（艺术家林知微）、`chen / Artist@123`（艺术家陈序）、`viewer / Viewer@123`（观众）、`curator / Curator@123`（策展人周澜）、`admin / Admin@123`（管理员）。
 
 ## 枚举出现位置清单
 

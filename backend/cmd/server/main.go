@@ -44,6 +44,8 @@ func main() {
 	interactionRepo := repository.NewInteractionRepository(db)
 	reviewRepo := repository.NewReviewRepository(db)
 	auditRepo := repository.NewAuditLogRepository(db)
+	sessionRepo := repository.NewSessionRepository(db)
+	reservationRepo := repository.NewReservationRepository(db)
 
 	authSvc := service.NewAuthService(userRepo, log, cfg)
 	artistSvc := service.NewArtistService(artistRepo, log)
@@ -52,6 +54,13 @@ func main() {
 	interactionSvc := service.NewInteractionService(interactionRepo, artworkRepo, log)
 	reviewSvc := service.NewReviewService(reviewRepo, log)
 	auditSvc := service.NewAuditLogService(auditRepo, log)
+	sessionSvc := service.NewSessionService(sessionRepo, exhibitionRepo, log)
+	reservationSvc := service.NewReservationService(reservationRepo, sessionRepo, exhibitionRepo, log)
+
+	if err := util.RegisterCustomValidations(); err != nil {
+		log.Error("register custom validations failed", "error", err)
+		os.Exit(1)
+	}
 
 	hs := &router.Handlers{
 		Auth:        handler.NewAuthHandler(authSvc),
@@ -61,6 +70,8 @@ func main() {
 		Interaction: handler.NewInteractionHandler(interactionSvc),
 		Review:      handler.NewReviewHandler(reviewSvc),
 		Audit:       handler.NewAuditHandler(auditSvc),
+		Session:     handler.NewSessionHandler(sessionSvc),
+		Reservation: handler.NewReservationHandler(reservationSvc),
 	}
 
 	ginRouter := router.NewRouter(cfg, log, db, hs, auditSvc, artworkRepo, exhibitionRepo)

@@ -3,9 +3,24 @@ package util
 import (
 	"errors"
 	"fmt"
+	"regexp"
 
+	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 )
+
+var cnMobilePattern = regexp.MustCompile(`^1[3-9]\d{9}$`)
+
+// RegisterCustomValidations 注册业务自定义校验标签（如 cn_mobile 国内手机号）。
+func RegisterCustomValidations() error {
+	v, ok := binding.Validator.Engine().(*validator.Validate)
+	if !ok {
+		return errors.New("binding validator engine unavailable")
+	}
+	return v.RegisterValidation("cn_mobile", func(fl validator.FieldLevel) bool {
+		return cnMobilePattern.MatchString(fl.Field().String())
+	})
+}
 
 // TranslateError 将参数校验错误翻译为可读的中文提示。
 func TranslateError(err error) string {

@@ -24,6 +24,8 @@ type Handlers struct {
 	Interaction *handler.InteractionHandler
 	Review      *handler.ReviewHandler
 	Audit       *handler.AuditHandler
+	Session     *handler.SessionHandler
+	Reservation *handler.ReservationHandler
 }
 
 // NewRouter 装配路由、CORS、限流、健康检查与鉴权。
@@ -76,6 +78,10 @@ func NewRouter(cfg *config.Config, logger *slog.Logger, db *mongo.Database, hs *
 			public.GET("/artists", hs.Artist.List)
 			public.GET("/artists/:id", hs.Artist.Get)
 			public.GET("/interactions", hs.Interaction.List)
+
+			// 展览场次：公开查询；观众凭手机号提交预约（无需登录）。
+			public.GET("/exhibitions/:id/sessions", hs.Session.List)
+			public.POST("/reservations", hs.Reservation.Create)
 		}
 
 		secured := v1.Group("")
@@ -99,6 +105,11 @@ func NewRouter(cfg *config.Config, logger *slog.Logger, db *mongo.Database, hs *
 				curatorOnly.POST("/exhibitions", hs.Exhibition.Create)
 				curatorOnly.PATCH("/exhibitions/:id/status", hs.Exhibition.ChangeStatus)
 				curatorOnly.POST("/exhibitions/:id/artworks/:artworkId", hs.Exhibition.AddArtwork)
+
+				// 场次管理与预约记录查看/取消，仅限策展人与管理员。
+				curatorOnly.POST("/exhibitions/:id/sessions", hs.Session.Create)
+				curatorOnly.GET("/exhibitions/:id/reservations", hs.Reservation.ListByExhibition)
+				curatorOnly.POST("/reservations/:reservationId/cancel", hs.Reservation.Cancel)
 			}
 
 			adminOnly := secured.Group("")

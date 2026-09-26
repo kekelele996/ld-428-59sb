@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { ArtworkCard } from '../components/common/ArtworkCard';
 import { ExhibitionBanner } from '../components/common/ExhibitionBanner';
 import { UserAvatar } from '../components/common/UserAvatar';
+import { ReservationPanel } from '../components/reservation/ReservationPanel';
 import { useArtistStore } from '../stores/artistStore';
 import { useArtworkStore } from '../stores/artworkStore';
 import { useExhibitionStore } from '../stores/exhibitionStore';
@@ -43,6 +44,9 @@ export function ExhibitionDetail() {
               ))}
             </div>
           </div>
+        </section>
+        <section className="mt-12 border-t border-ink/15 pt-10">
+          <ReservationPanel exhibitionId={id} />
         </section>
       </div>
     </main>
